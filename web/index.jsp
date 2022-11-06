@@ -25,17 +25,22 @@
 
 
             <%
-                            ArrayList<Product> listP = new ProductDAO().getProductsOrderDetail();
-                            for(Product p: listP) {
+                ArrayList<Product> listP = new ProductDAO().getProductsOrderDetail();
+                for(Product p: listP) {
             %> 
 
             <div class="product">
 
                 <a href="detail?id=<%=p.getProductID()%>"><img src="img/1.jpg" width="100%"/></a>
-                <div class="name" ><a href="detail?id=<%=p.getProductID()%>"><%=p.getProductName()%></a></div>
+                <div class="name"><a href="detail?id=<%=p.getProductID()%>"  style="text-decoration: none"><%=p.getProductName()%></a></div>
                 <div class="price" >$<%=p.getUnitPrice()%></div>
                 <div>                   
-                    <div><a href="buy?id=<%=p.getProductID()%>">Buy now</a></div>
+                    <div>
+                        <form action="buy?idB=<%=p.getProductID()%>" method="post">
+                            <button type="submit" class="btn btn-primary" style="border-color: #f5f5f5; background-color: #f5f5f5">Buy Now</button>
+                        </form>
+
+                    </div>
                 </div>
             </div>
 
@@ -54,9 +59,11 @@
             %> 
             <div class="product">
                 <a href="detail?id=<%=p.getProductID()%>"><img src="img/1.jpg" width="100%"/></a>
-                <div class="name"><a href="detail?id=<%=p.getProductID()%>"><%=p.getProductName()%></a></div>
+                <div class="name"><a href="detail?id=<%=p.getProductID()%>"  style="text-decoration: none"><%=p.getProductName()%></a></div>
                 <div class="price">$<%=p.getUnitPrice()%></div>
-                <div><a href="buy?id=<%=p.getProductID()%>">Buy now</a></div>
+                <form action="buy?idB=<%=p.getProductID()%>" method="post">
+                    <button type="submit" class="btn btn-primary" style="border-color: #f5f5f5; background-color: #f5f5f5">Buy Now</button>
+                </form>
             </div>
             <%
           
@@ -70,10 +77,12 @@
     for(Product p: listN) {
             %>
             <div class="product">
-                 <a href="detail?id=<%=p.getProductID()%>"><img src="img/1.jpg" width="100%"/></a>
-                <div class="name"><a href="detail?id=<%=p.getProductID()%>"><%=p.getProductName()%></a></div>
+                <a href="detail?id=<%=p.getProductID()%>"><img src="img/1.jpg" width="100%"/></a>
+                <div class="name"><a href="detail?id=<%=p.getProductID()%>"  style="text-decoration: none"><%=p.getProductName()%></a></div>
                 <div class="price">$<%=p.getUnitPrice()%></div>
-                <div><a href="buy?id=<%=p.getProductID()%>">Buy now</a></div>
+                <form action="buy?idB=<%=p.getProductID()%>" method="post">
+                    <button type="submit" class="btn btn-primary" style="border-color: #f5f5f5; background-color: #f5f5f5">Buy Now</button>
+                </form>
             </div>
             <%
           

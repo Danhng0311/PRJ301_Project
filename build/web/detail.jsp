@@ -100,7 +100,7 @@
 </div>
 <script type="text/javascript">
     function buynow(id) {
-        if (confirm("Do you wanna to buy")) {
+        if (confirm("Do you really want to buy this ?")) {
             window.location = "buy?id=" + id;
         }
     }

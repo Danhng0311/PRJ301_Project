@@ -44,23 +44,21 @@
                 </div>
             </div>
             <div id="dashboard-2">
-                
+
                 <div id="chart" style="text-align: center;">
 
                     <div id="chart1">
                         <form action="filterx" method="post">
-                    <select name="yearF">
-                        <%
-                        ArrayList<Integer> odd2 = new OrdersDAO().getOrdersByYears();
-                        for (Integer a : odd2) {
-                        %> 
-                        <option value="<%= a%>"><%= a%></option>
-                        <%
-                            }
-                        %>
-                    </select>
-                    <input type="submit" value="Filter">
-                </form>
+                            <select name="yearF">
+                                <%                             
+                                request.setAttribute("odd2", new OrdersDAO());
+                                %> 
+                                <c:forEach items="${odd2.getOrdersByYears()}" var="a">
+                                    <option value="${a}" <c:if test="${a eq yearF}">selected</c:if>>${a}</option>
+                                </c:forEach>
+                            </select>
+                            <input type="submit" value="Filter">
+                        </form>
                         <h3>Statistic Orders (Month)</h3>
                         <canvas id="myChart1" style="width: 100%;"></canvas>
                     </div>
@@ -76,74 +74,74 @@
 <%@include file="template/footer_Admin.jsp" %>
 <script>
     function OrdersChart() {
-    var xValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        var xValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     <c:if test="${yearF == null}">
-    new Chart("myChart1", {
-                    type: "line",
-                            data: {
-                            labels: xValues,
-                                    datasets: [{
-                                    data: [${oD.countOrderByMonth(1, 2022)}, ${oD.countOrderByMonth(2, 2022)}, ${oD.countOrderByMonth(3, 2022)},
-    ${oD.countOrderByMonth(4, 2022)}, ${oD.countOrderByMonth(5, 2022)}, ${oD.countOrderByMonth(6, 2022)},
-    ${oD.countOrderByMonth(7, 2022)}, ${oD.countOrderByMonth(8, 2022)}, ${oD.countOrderByMonth(9, 2022)},
-    ${oD.countOrderByMonth(10, 2022)}, ${oD.countOrderByMonth(11, 2022)}, ${oD.countOrderByMonth(12, 2022)}],
-                                            borderColor: "sienna",
-                                            fill: true
-                                    }]
-                            },
-                            options: {
-                            legend: {display: false}
-                            }
-                    });
-                    }
+        new Chart("myChart1", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                        data: [${oD.countOrderByMonth(1, 1996)}, ${oD.countOrderByMonth(2, 1996)}, ${oD.countOrderByMonth(3, 1996)},
+        ${oD.countOrderByMonth(4, 1996)}, ${oD.countOrderByMonth(5, 1996)}, ${oD.countOrderByMonth(6, 1996)},
+        ${oD.countOrderByMonth(7, 1996)}, ${oD.countOrderByMonth(8, 1996)}, ${oD.countOrderByMonth(9, 1996)},
+        ${oD.countOrderByMonth(10, 1996)}, ${oD.countOrderByMonth(11, 1996)}, ${oD.countOrderByMonth(12, 1996)}],
+                        borderColor: "sienna",
+                        fill: true
+                    }]
+            },
+            options: {
+                legend: {display: false}
+            }
+        });
+    }
 
-                   
-                    
+
+
     </c:if>
     <c:if test="${yearF != null}">
-    <c:set value="${yearF}" var="y"/>
-                    new Chart("myChart1", {
-                    type: "line",
-                            data: {
-                            labels: xValues,
-                                    datasets: [{
-                                    data: [${oD.countOrderByMonth(1, y)}, ${oD.countOrderByMonth(2, y)}, ${oD.countOrderByMonth(3, y)},
-    ${oD.countOrderByMonth(4, y)}, ${oD.countOrderByMonth(5, y)}, ${oD.countOrderByMonth(6, y)},
-    ${oD.countOrderByMonth(7, y)}, ${oD.countOrderByMonth(8, y)}, ${oD.countOrderByMonth(9, y)},
-    ${oD.countOrderByMonth(10, y)}, ${oD.countOrderByMonth(11, y)}, ${oD.countOrderByMonth(12, y)}],
-                                            borderColor: "sienna",
-                                            fill: true
-                                    }]
-                            },
-                            options: {
-                            legend: {display: false}
-                            }
-                    });
-                    }
-</c:if>
-                    function CustomersChart() {
-                    var xValues = ["Total", "New customer"];
-                    var yValues = [${cD.getCountAllCus()}, ${cD.getCountNewCus()}];
-                    var barColors = ["green", "red"];
-                    new Chart("myChart2", {
-                    type: "bar",
-                            data: {
-                            labels: xValues,
-                                    datasets: [{
-                                    backgroundColor: barColors,
-                                            data: yValues
-                                    }]
-                            },
-                            options: {
-                            legend: {display: false},
-                                    title: {
-                                    display: true,
-                                            text: "New Customers (30 daily Avg)"
-                                    }
-                            }
-                    });
-                    }
+        <c:set value="${yearF}" var="y"/>
+    new Chart("myChart1", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                    data: [${oD.countOrderByMonth(1, y)}, ${oD.countOrderByMonth(2, y)}, ${oD.countOrderByMonth(3, y)},
+        ${oD.countOrderByMonth(4, y)}, ${oD.countOrderByMonth(5, y)}, ${oD.countOrderByMonth(6, y)},
+        ${oD.countOrderByMonth(7, y)}, ${oD.countOrderByMonth(8, y)}, ${oD.countOrderByMonth(9, y)},
+        ${oD.countOrderByMonth(10, y)}, ${oD.countOrderByMonth(11, y)}, ${oD.countOrderByMonth(12, y)}],
+                    borderColor: "sienna",
+                    fill: true
+                }]
+        },
+        options: {
+            legend: {display: false}
+        }
+    });
+    }
+    </c:if>
+    function CustomersChart() {
+        var xValues = ["Total", "New customer"];
+        var yValues = [${cD.getCountAllCus()}, ${cD.getCountNewCus()}];
+        var barColors = ["green", "red"];
+        new Chart("myChart2", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "New Customers (30 daily Avg)"
+                }
+            }
+        });
+    }
 
-                    OrdersChart();
-                    CustomersChart();
+    OrdersChart();
+    CustomersChart();
 </script>

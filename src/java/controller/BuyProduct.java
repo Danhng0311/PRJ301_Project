@@ -34,7 +34,7 @@ public class BuyProduct extends HttpServlet {
         } catch (Exception e) {
             id = 0;
         }
-        if(id == 0) {
+        if (id == 0) {
             req.getRequestDispatcher("Error.jsp").forward(req, resp);
         }
 
@@ -68,7 +68,7 @@ public class BuyProduct extends HttpServlet {
 
         } catch (Exception e) {
         }
-        
+
 //        ProductDAO pD = new ProductDAO();
 //        List<Product> list = pD.getProducts();
 //        Cookie[] arr = req.getCookies();
@@ -147,7 +147,9 @@ public class BuyProduct extends HttpServlet {
         String idx = req.getParameter("id");
         String iddx = req.getParameter("idd");
 
-        if (iddx != null && idx == null) {
+        String idb = req.getParameter("idB");
+
+        if (iddx != null && idx == null && idb == null) {
 
             int id2 = Integer.parseInt(iddx);
 
@@ -180,7 +182,7 @@ public class BuyProduct extends HttpServlet {
                 resp.sendRedirect("detail?id=" + id2);
             } catch (Exception e) {
             }
-        } else if (iddx == null && idx != null) {
+        } else if (iddx == null && idx != null && idb == null) {
             int id;
             try {
                 id = Integer.parseInt(idx);
@@ -215,6 +217,41 @@ public class BuyProduct extends HttpServlet {
                 req.getSession().setAttribute("size", list.size());
                 resp.sendRedirect("detail?id=" + id);
 //                req.getRequestDispatcher("cart.jsp").forward(req, resp);
+            } catch (Exception e) {
+            }
+        } else {
+            int idB;
+            idB = Integer.parseInt(idb);
+
+            ShoppingCart sc = null;
+            Object o = req.getSession().getAttribute("cart");
+            if (o != null) {
+                sc = (ShoppingCart) o;
+            } else {
+                sc = new ShoppingCart();
+            }
+
+            try {
+
+                ProductDAO pD = new ProductDAO();
+                //ArrayList<Product> listP = pD.getProductsByID(id);
+                Product p = pD.getProductByID2(idB);
+                ItemAddToCart i = new ItemAddToCart(p, 1, p.getUnitPrice());
+                sc.addItem(i);
+
+                //req.getSession().setAttribute("list", listP);
+                List<ItemAddToCart> list = sc.getItems();
+                req.getSession().setAttribute("cart", sc);
+                req.getSession().setAttribute("list", list);
+                double t;
+                t = sc.getTotal();
+                req.getSession().setAttribute("t", t);
+
+                //req.getRequestDispatcher("cart.jsp").forward(req, resp);
+                req.getSession().setAttribute("size", list.size());
+                resp.sendRedirect("cart.jsp");
+//                req.getRequestDispatcher("cart.jsp").forward(req, resp);
+
             } catch (Exception e) {
             }
         }

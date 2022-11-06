@@ -39,8 +39,10 @@
                 <a href="detail?id=<%=item.getProductID()%>"><img src="img/1.jpg" width="100%"/></a>
                 <div class="name"><a href="detail?id=<%=item.getProductID()%>"><%=item.getProductName()%></a></div>
                 <div class="price">$<%=item.getUnitPrice()%></div>
+                <form action="buy?id=<%=item.getProductID()%>" method="post">
+                    <button type="submit" class="btn btn-primary" style="border-color: #f5f5f5; background-color: #f5f5f5">Buy Now</button>
+                </form>
 
-                <div class="buyy"><a href="buy?id=<%=item.getProductID()%>">Buy now</a></div>
 
             </div>
             <%                 

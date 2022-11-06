@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 /**
  *
  * @author Anh
@@ -21,6 +22,8 @@ public class Filter_X extends HttpServlet{
         int yearF = Integer.parseInt(req.getParameter("yearF"));
         
         req.getSession().setAttribute("yearF", yearF);
+//        ArrayList<Integer> odd2 = new OrdersDAO().getOrdersByYears();
+//        req.getSession().setAttribute("odd2", odd2);
         req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
     }
     

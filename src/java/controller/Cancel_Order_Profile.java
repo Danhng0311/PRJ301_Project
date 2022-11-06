@@ -41,7 +41,7 @@ public class Cancel_Order_Profile extends HttpServlet {
                 OrdersDAO oD = new OrdersDAO();
                 oD.updateRequiredDateOrders(odtID);
 
-                req.getRequestDispatcher("cancel_ord_profile.jsp").forward(req, resp);
+                req.getRequestDispatcher(req.getContextPath()+"/../account/allorder").forward(req, resp);
             } catch (Exception e) {
             }
         } else if (odt == null && odtIDad != null) {
